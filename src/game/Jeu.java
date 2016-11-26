@@ -3,6 +3,22 @@ package game;
 public class Jeu {
 	public Jeu()
 	{
-		System.out.println("INIT");
+		
 	}
+	
+	public De getDe()
+	{
+		return De.getInstance();
+	}
+	
+	public Centre getCentre()
+	{
+		return Centre.getInstance();
+	}
+	
+	public Pioche getPioche()
+	{
+		return Pioche.getInstance();
+	}
+	
 }
