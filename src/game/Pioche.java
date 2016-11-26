@@ -30,6 +30,6 @@ public final class Pioche {
 	
 	public Carte piocher()
 	{
-		return new Carte(); // temp
+		return cartes.remove();
 	}
 }
