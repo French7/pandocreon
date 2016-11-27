@@ -9,10 +9,12 @@ public class Joueur {
 	protected MainJoueur main;
 	protected Camp camp;
 	protected int paJour, paNuit, paNeant;
+	protected String name;
 	
-	public Joueur(Jeu _j)
+	public Joueur(Jeu _j, String _name)
 	{
 		this.j = _j;
+		this.name = _name;
 		main = new MainJoueur();
 		camp = new Camp();
 		paJour = 0;
