@@ -51,4 +51,13 @@ public class Joueur {
 	{
 		
 	}
+	
+	@Override
+	public String toString()
+	{
+		String str = this.name;
+		if(this instanceof JoueurHumain) str+=" - humain";
+		else str+=" - IA";
+		return str;
+	}
 }
