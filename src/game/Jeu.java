@@ -39,6 +39,11 @@ public class Jeu {
 		}
 	}
 	
+	private void initDivinites()
+	{
+		
+	}
+	
 	private void initCartes()
 	{
 		

@@ -1,6 +1,7 @@
 package game;
 
 import cartes.*;
+import divinites.Divinite;
 
 public class Joueur {
 	
@@ -56,8 +57,9 @@ public class Joueur {
 	public String toString()
 	{
 		String str = this.name;
-		if(this instanceof JoueurHumain) str+=" - humain";
-		else str+=" - IA";
+		if(this instanceof JoueurHumain) str+="\thumain\t";
+		else str+="\tIA\t";
+		str+= paJour + " PA Jour, " + paNuit + " PA Nuit, " + paNeant + " PA Néant";
 		return str;
 	}
 }
