@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import cartes.*;
 import divinites.Divinite;
 
@@ -12,6 +14,8 @@ public class Joueur {
 	protected int paJour, paNuit, paNeant;
 	protected String name;
 	
+	protected boolean jeuLance;
+	
 	public Joueur(Jeu _j, String _name)
 	{
 		this.j = _j;
@@ -21,6 +25,15 @@ public class Joueur {
 		paJour = 0;
 		paNuit = 0;
 		paNeant = 0;
+		jeuLance = false;
+	}
+	
+	public void tour()
+	{
+		if (!jeuLance)
+		{
+			piocherDivinite();
+		}
 	}
 	
 	protected String lancerDe()
@@ -40,7 +53,16 @@ public class Joueur {
 	
 	protected void piocherDivinite()
 	{
-		j.piocheDivinite();
+		this.d = j.piocheDivinite();
+		String nomDivinite = d.getNom();
+		Origines originieDivinite = d.getOrigine();
+		ArrayList<Dogmes> dogmesDivinite = d.getDogmes();
+		feedback("Divinité piochée : " + nomDivinite + " - " + originieDivinite + " - " + dogmesDivinite);
+	}
+	
+	protected void feedback(String str)
+	{
+		j.afficher(str, this);
 	}
 	
 	protected void passerTour()
@@ -51,6 +73,11 @@ public class Joueur {
 	protected void recupererCroyants()
 	{
 		
+	}
+	
+	public String getName()
+	{
+		return this.name; 
 	}
 	
 	public String toString()

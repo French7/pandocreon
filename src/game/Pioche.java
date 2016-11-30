@@ -1,7 +1,6 @@
 package game;
 
 import java.util.LinkedList;
-import java.util.Queue;
 import cartes.*;
 
 public final class Pioche {

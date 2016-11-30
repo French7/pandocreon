@@ -15,7 +15,7 @@ public class Jeu {
 	public Jeu()
 	{
 		io = new IO(this);
-		io.afficher("Bienvenue.");
+		afficher("Bienvenue.", this);
 		initCartes();
 		initDivinites();
 		initJoueurs();
@@ -24,14 +24,21 @@ public class Jeu {
 	
 	public void lancerPartie()
 	{
-		
+		for (Joueur j : joueurs) {
+			afficher(j.getName()+", voici votre carte Divinité.", this);
+			j.tour();
+		}
+		while(true)
+		{
+			
+		}
 	}
 	
 	private void initJoueurs()
 	{
 		this.joueurs = new ArrayList<Joueur>();
 		
-		io.afficher("Combien de joueurs ?");
+		afficher("Combien de joueurs ?", this);
 		int nbJoueurs = 0;
 		while (nbJoueurs < 2)
 		{
@@ -40,14 +47,9 @@ public class Jeu {
 		
 		for (int i = 1; i <= nbJoueurs; i++)
 		{
-			io.afficher("Nom du joueur " + i);
+			afficher("Nom du joueur " + i, this);
 			String nom = io.askString();
 			joueurs.add(new JoueurHumain(this, nom));
-		}
-		
-		System.out.println("Résumé des joueurs :");
-		for (Joueur j : joueurs) {
-			System.out.println(j);
 		}
 	}
 	
@@ -89,6 +91,16 @@ public class Jeu {
 	public Pioche getPioche()
 	{
 		return Pioche.getInstance();
+	}
+
+	public void afficher(String str, Object origine)
+	{
+		String prefix = "";
+		if(origine.getClass() == JoueurHumain.class || origine.getClass() == JoueurIA.class)
+			prefix = ((Joueur)origine).getName() + "> ";
+		else
+			prefix = "#> ";
+		System.out.println(prefix + str);	
 	}
 	
 }

@@ -13,13 +13,13 @@ public class IO {
 		this.j = _j;
 	}
 	
-	public void afficher(String srt)
+	public void afficher(String str)
 	{
-		System.out.println(srt);
+		System.out.println(str);
 	}
 	
 	private void prompt(){
-		System.out.print("> ");
+		System.out.print("~> ");
 	}
 	
 	public String askString()
@@ -57,5 +57,11 @@ public class IO {
 			afficher("Fichier non trouvé !");
 		}
 		return str;
+	}
+	
+	public void entree()
+	{
+		Scanner sc = new Scanner(System.in);
+		sc.nextLine();
 	}
 }
