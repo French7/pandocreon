@@ -40,7 +40,7 @@ public class Joueur {
 	
 	protected void piocherDivinite()
 	{
-		
+		j.piocheDivinite();
 	}
 	
 	protected void passerTour()

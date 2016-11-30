@@ -2,13 +2,15 @@ package game;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import divinites.Divinite;
 
 public class Jeu {
 	
 	private ArrayList<Joueur> joueurs;
 	private IO io;
-	private ArrayList<Divinite> divinites;
+	private LinkedList<Divinite> divinites;
 	
 	public Jeu()
 	{
@@ -17,6 +19,12 @@ public class Jeu {
 		initCartes();
 		initDivinites();
 		initJoueurs();
+		lancerPartie();
+	}
+	
+	public void lancerPartie()
+	{
+		
 	}
 	
 	private void initJoueurs()
@@ -45,7 +53,7 @@ public class Jeu {
 	
 	private void initDivinites()
 	{
-		this.divinites = new ArrayList<Divinite>();
+		this.divinites = new LinkedList<Divinite>();
 		String f = io.readFile("DIVINITES.txt");
 		Parser p = new Parser();
 		for (String line : p.parseFile(f)) { // split le fichier en lignes
@@ -55,11 +63,17 @@ public class Jeu {
 			
 			divinites.add(new Divinite(name, origine, dogmes));
 		}
+		Collections.shuffle(divinites); //mélange !
 	}
 	
 	private void initCartes()
 	{
 		
+	}
+	
+	public Divinite piocheDivinite()
+	{
+		return divinites.poll();
 	}
 	
 	public De getDe()
