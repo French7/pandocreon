@@ -1,19 +1,21 @@
 package game;
 
+
 import java.util.ArrayList;
+import divinites.Divinite;
 
 public class Jeu {
 	
 	private ArrayList<Joueur> joueurs;
 	private IO io;
+	private ArrayList<Divinite> divinites;
 	
 	public Jeu()
 	{
-		for(int i=0;i<10;i++)
-			System.out.println(De.getInstance().lancer());
 		io = new IO(this);
 		io.afficher("Bienvenue.");
 		initCartes();
+		initDivinites();
 		initJoueurs();
 	}
 	
@@ -43,7 +45,16 @@ public class Jeu {
 	
 	private void initDivinites()
 	{
-		
+		this.divinites = new ArrayList<Divinite>();
+		String f = io.readFile("DIVINITES.txt");
+		Parser p = new Parser();
+		for (String line : p.parseFile(f)) { // split le fichier en lignes
+			String name = p.getName(line);
+			Origines origine = p.getOrigine(line);
+			ArrayList<Dogmes> dogmes = p.getDogmes(line);
+			
+			divinites.add(new Divinite(name, origine, dogmes));
+		}
 	}
 	
 	private void initCartes()

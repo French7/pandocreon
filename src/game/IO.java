@@ -1,5 +1,7 @@
 package game;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
 public class IO {
@@ -39,5 +41,21 @@ public class IO {
 		}
 		int i = sc.nextInt();
 		return i;
+	}
+	
+	public String readFile(String _f)
+	{
+		String str = "";
+		try {
+			Scanner sc = new Scanner(new FileReader(_f));
+			while(sc.hasNext())
+			{
+				str+=sc.next();
+				str+="\n";
+			}
+		} catch (FileNotFoundException e) {
+			afficher("Fichier non trouvé !");
+		}
+		return str;
 	}
 }

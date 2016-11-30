@@ -22,4 +22,27 @@ public class Divinite {
 	{
 		
 	}
+	
+	public String getNom()
+	{
+		return this.nom;
+	}
+	
+	public Origines getOrigine()
+	{
+		return this.origine;
+	}
+	
+	public ArrayList<Dogmes> getDogmes()
+	{
+		return this.dogmes;
+	}
+	
+	public String toString()
+	{
+		String out = "Nom : "+nom+" ; ";
+		out += "Origine : "+origine+" ; ";
+		out += "Dogmes : "+dogmes;
+		return out;
+	}
 }
