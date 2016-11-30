@@ -7,7 +7,6 @@ public final class De {
 	
 	private De()
 	{
-		super();
 		faces = new String[3];
 		faces[0] = "jour";
 		faces[1] = "nuit";

@@ -9,6 +9,6 @@ public class MainJoueur {
 	
 	public MainJoueur()
 	{
-		
+		cartes = null;
 	}
 }

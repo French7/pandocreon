@@ -9,6 +9,8 @@ public class Jeu {
 	
 	public Jeu()
 	{
+		for(int i=0;i<10;i++)
+			System.out.println(De.getInstance().lancer());
 		io = new IO(this);
 		io.afficher("Bienvenue.");
 		initCartes();

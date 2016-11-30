@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import game.Dogmes;
 import game.Origines;
 
-public abstract class Divinite {
+public class Divinite {
 	protected String nom;
 	protected Origines origine;
 	protected ArrayList<Dogmes> dogmes;
@@ -18,5 +18,8 @@ public abstract class Divinite {
 		this.dogmes = _dogmes;
 	}
 	
-	abstract public void pouvoir();
+	public void pouvoir()
+	{
+		
+	}
 }
