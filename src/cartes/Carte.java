@@ -3,7 +3,7 @@ package cartes;
 import game.*;
 import java.util.ArrayList;
 
-public class Carte {
+public abstract class Carte {
 	
 	protected String nom;
 	protected Origines origine;
@@ -19,5 +19,11 @@ public class Carte {
 	public void effet()
 	{
 		
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.getClass() + " - " + nom + ", " + origine + ", " + dogmes;
 	}
 }

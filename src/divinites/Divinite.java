@@ -1,26 +1,29 @@
 package divinites;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import game.Dogmes;
 import game.Origines;
 
 public class Divinite {
-	protected String nom;
-	protected Origines origine;
-	protected ArrayList<Dogmes> dogmes;
+	private String nom;
+	private Origines origine;
+	private ArrayList<Dogmes> dogmes;
+	private Pouvoir pouvoir;
 	
-	public Divinite(String _nom, Origines _o, ArrayList<Dogmes> _dogmes)
+	public Divinite(String _nom, Origines _o, ArrayList<Dogmes> _dogmes) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{
 		this.nom = _nom;
 		this.origine = _o;
 		this.dogmes = _dogmes;
+		this.pouvoir = new Pouvoir(this.nom);
 	}
 	
-	public void pouvoir()
+	public void pouvoir() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{
-		
+		this.pouvoir.invoquerPouvoir();
 	}
 	
 	public String getNom()
@@ -44,5 +47,10 @@ public class Divinite {
 		out += "Origine : "+origine+" ; ";
 		out += "Dogmes : "+dogmes;
 		return out;
+	}
+	
+	public Pouvoir getPouvoir()
+	{
+		return this.pouvoir;
 	}
 }

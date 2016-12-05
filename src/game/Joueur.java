@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import cartes.*;
 import divinites.Divinite;
 
-public class Joueur {
+public abstract class Joueur {
 	
 	protected Jeu j;
 	protected Divinite d;
@@ -30,10 +30,7 @@ public class Joueur {
 	
 	public void tour()
 	{
-		if (!jeuLance)
-		{
-			piocherDivinite();
-		}
+		
 	}
 	
 	protected String lancerDe()
@@ -41,9 +38,10 @@ public class Joueur {
 		return j.getDe().lancer();
 	}
 	
-	protected Carte piocherCarte()
+	protected void piocherCarte()
 	{
-		return j.getPioche().piocher();
+		Carte c = j.getPioche().piocher();
+		this.main.ajouterCarte(c);
 	}
 	
 	protected void defausserCarte()
@@ -57,12 +55,12 @@ public class Joueur {
 		String nomDivinite = d.getNom();
 		Origines originieDivinite = d.getOrigine();
 		ArrayList<Dogmes> dogmesDivinite = d.getDogmes();
-		feedback("Divinité piochée : " + nomDivinite + " - " + originieDivinite + " - " + dogmesDivinite);
+		feedback("Divinité piochée : " + nomDivinite + " - " + originieDivinite + " - " + dogmesDivinite + " : " + this.d.getPouvoir());
 	}
 	
 	protected void feedback(String str)
 	{
-		j.afficher(str, this);
+		j.afficher(str, this, true);
 	}
 	
 	protected void passerTour()
@@ -86,6 +84,27 @@ public class Joueur {
 		if(this instanceof JoueurHumain) str+="\thumain\t";
 		else str+="\tIA\t";
 		str+= paJour + " PA Jour, " + paNuit + " PA Nuit, " + paNeant + " PA Néant";
+		for (Carte c : main.getCartes()) {
+			str+= c.toString()+"\n";
+		}
 		return str;
+	}
+	
+	public void afficher(String _str)
+	{
+		j.getIO().afficher(this.name + "> " + _str);
+	}
+	
+	
+	// A REDEFINIR DANS JOUEURAI/JOUEURHUMAIN
+	
+	public int askInt()
+	{
+		return 0;
+	}
+	
+	public String askString()
+	{
+		return "";
 	}
 }

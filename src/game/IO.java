@@ -18,6 +18,11 @@ public class IO {
 		System.out.println(str);
 	}
 	
+	public void afficherSansRetour(String str)
+	{
+		System.out.print(str);
+	}
+	
 	private void prompt(){
 		System.out.print("~> ");
 	}
@@ -59,7 +64,7 @@ public class IO {
 		return str;
 	}
 	
-	public void entree()
+	public void valider()
 	{
 		Scanner sc = new Scanner(System.in);
 		sc.nextLine();

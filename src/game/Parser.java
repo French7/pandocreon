@@ -25,7 +25,10 @@ public class Parser {
 	
 	public Origines getOrigine(String _in)
 	{
-		return Origines.valueOf(_in.split(";")[1]);
+		if(_in.split(";")[1].equals("null"))
+			return null;
+		else
+			return Origines.valueOf(_in.split(";")[1]);
 	}
 	
 	public ArrayList<Dogmes> getDogmes(String _in)
@@ -37,5 +40,10 @@ public class Parser {
 			dogmesArrayList.add(Dogmes.valueOf(str));
 		}
 		return dogmesArrayList;
+	}
+	
+	public int getNbCroyants(String _in)
+	{
+		return Integer.parseInt(_in.split(";")[3]);
 	}
 }

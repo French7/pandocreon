@@ -9,6 +9,16 @@ public class MainJoueur {
 	
 	public MainJoueur()
 	{
-		cartes = null;
+		cartes = new ArrayList<Carte>();
+	}
+	
+	public ArrayList<Carte> getCartes()
+	{
+		return this.cartes;
+	}
+	
+	public void ajouterCarte(Carte _c)
+	{
+		this.cartes.add(_c);
 	}
 }
