@@ -13,4 +13,15 @@ public class GuideSpirituel extends Carte {
 	{
 		super(_nom, _o, _dogmes);
 	}
+	
+	@Override
+	public String toString()
+	{
+		String o = "";
+		if(this.origine.equals("null"))
+			o = "pas d'origine";
+		else
+			o = origine.toString();
+		return "Guide Spirituel - " + nom + ", " + origine;
+	}
 }

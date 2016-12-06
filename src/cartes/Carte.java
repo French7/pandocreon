@@ -20,10 +20,4 @@ public abstract class Carte {
 	{
 		
 	}
-	
-	@Override
-	public String toString()
-	{
-		return this.getClass() + " - " + nom + ", " + origine + ", " + dogmes;
-	}
 }

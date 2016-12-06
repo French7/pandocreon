@@ -7,4 +7,15 @@ public class DeusEx extends Carte {
 	{
 		super(_nom, _o, null);
 	}
+	
+	@Override
+	public String toString()
+	{
+		String o = "";
+		if(this.origine.equals("null"))
+			o = "pas d'origine";
+		else
+			o = origine.toString();
+		return "Deus Ex - " + nom + ", " + origine;
+	}
 }

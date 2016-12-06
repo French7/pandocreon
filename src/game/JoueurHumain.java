@@ -2,6 +2,8 @@ package game;
 
 import java.util.Scanner;
 
+import cartes.Carte;
+
 public class JoueurHumain extends Joueur {
 	public JoueurHumain(Jeu _j, String _name)
 	{
@@ -17,14 +19,22 @@ public class JoueurHumain extends Joueur {
 		}
 		else 
 		{
-			afficher("Lancement du Dé de Cosmogonie : appuyez sur [Entrée]");
+			j.getIO().afficher(getEtat());
 			j.getIO().valider();
-			String de = j.getDe().lancer();
-			j.getIO().afficher(de);
-			j.getIO().afficher("Que voulez vous jouer ?\n"
-					+ "1- ...");
-			int choix = askInt();
 		}
+	}
+	
+	private String getEtat()
+	{
+		String str = this.name+" : ";
+		str+="\nPA Jour : "+this.paJour;
+		str+="\nPA Nuit : "+this.paNuit;
+		str+="\nPA Néant : "+this.paNeant;
+		str+="\nCartes en main :";
+		for (Carte c : main.getCartes()) {
+			str+="\n\t"+c.toString();
+		}
+		return str;
 	}
 	
 	public int askInt()

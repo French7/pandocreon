@@ -1,7 +1,6 @@
 package game;
 
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -21,7 +20,7 @@ public class Jeu {
 	public Jeu()
 	{
 		io = new IO(this);
-		afficher("Bienvenue.", this, true);
+		io.afficher("Bienvenue.");
 		initCartes();
 		initDivinites();
 		this.joueurs = new ArrayList<Joueur>();
@@ -33,13 +32,15 @@ public class Jeu {
 	public void lancerPartie()
 	{
 		for (Joueur j : joueurs) {
-			afficher(j.getName()+", appuyez sur [Entrée] pour piocher votre carte Divinité.", this, false);
+			io.afficher(j.getName()+", appuyez sur [Entrée] pour piocher votre carte Divinité.");
 			io.valider();
 			j.tour();
 		}
 		while(joueurs.size() > 1)
 		{
 			for (Joueur joueur : joueurs) {
+				lancementDe();
+				io.afficher("C'est au tour de "+joueur.getName()+" de jouer.");
 				joueur.tour();
 			}
 		}
@@ -47,7 +48,7 @@ public class Jeu {
 	
 	private void initJoueurs()
 	{		
-		afficher("Combien de joueurs réels ?", this, true);
+		io.afficher("Combien de joueurs réels ?");
 		int nbJoueursH = 0;
 		while (nbJoueursH < 1)
 		{
@@ -56,12 +57,12 @@ public class Jeu {
 		
 		for (int i = 1; i <= nbJoueursH; i++)
 		{
-			afficher("Nom du joueur humain " + i, this, true);
+			io.afficher("Nom du joueur humain " + i);
 			String nom = io.askString();
 			joueurs.add(new JoueurHumain(this, nom));
 		}
 		
-		afficher("Combien de joueurs virtuels ?", this, true);
+		io.afficher("Combien de joueurs virtuels ?");
 		int nbJoueursV = io.askInt();
 		
 		while (nbJoueursH + nbJoueursV < 2)
@@ -71,7 +72,7 @@ public class Jeu {
 		
 		for (int i = 1; i <= nbJoueursV; i++)
 		{
-			afficher("Nom du joueur virtuel " + i, this, true);
+			io.afficher("Nom du joueur virtuel " + i);
 			String nom = io.askString();
 			joueurs.add(new JoueurIA(this, nom));
 		}
@@ -158,6 +159,43 @@ public class Jeu {
 		Collections.shuffle(Pioche.getInstance().getListeCartes()); //mélange !
 	}
 	
+	public void lancementDe()
+	{
+		String de = getDe().lancer().toUpperCase();		
+		io.afficher("Lancement du Dé de Cosmogonie : " + de);
+		switch (de) {
+		case "JOUR":
+			for (Joueur j : joueurs) {
+				if(j.getDivinite().getOrigine() == Origines.JOUR)
+					j.ajouterPAJour(2);
+				else if (j.getDivinite().getOrigine() == Origines.AUBE)
+					j.ajouterPAJour(1);
+			}
+			break;
+			
+		case "NUIT":
+			for (Joueur j : joueurs) {
+				if(j.getDivinite().getOrigine() == Origines.NUIT)
+					j.ajouterPANuit(2);
+				else if (j.getDivinite().getOrigine() == Origines.CREPUSCULE)
+					j.ajouterPANuit(1);
+			}
+			break;
+			
+		case "NEANT":
+			for (Joueur j : joueurs) {
+				if(j.getDivinite().getOrigine() == Origines.NEANT)
+					j.ajouterPAJour(2);
+				else if (j.getDivinite().getOrigine() == Origines.AUBE || j.getDivinite().getOrigine() == Origines.CREPUSCULE)
+					j.ajouterPAJour(1);
+			}
+			break;
+			
+		default:
+			break;
+		}
+	}
+	
 	public Divinite piocheDivinite()
 	{
 		return divinites.poll();
@@ -178,19 +216,6 @@ public class Jeu {
 		return Pioche.getInstance();
 	}
 
-	public void afficher(String str, Object origine, boolean retour)
-	{
-		String prefix = "";
-		if(origine.getClass() == JoueurHumain.class || origine.getClass() == JoueurIA.class)
-			prefix = ((Joueur)origine).getName() + "> ";
-		else
-			prefix = "#> ";
-		if (retour)
-			io.afficher(prefix + str);	
-		else
-			io.afficherSansRetour(prefix + str);
-	}
-	
 	public IO getIO()
 	{
 		return this.io;

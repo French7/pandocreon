@@ -14,4 +14,10 @@ public class Croyant extends Carte {
 		super(_nom, _o, _dogmes);
 		this.nbCroyants = _nbCroyants;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "Croyant - " + nom + ", " + origine + ", " + dogmes;
+	}
 }

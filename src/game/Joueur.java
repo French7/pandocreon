@@ -60,7 +60,7 @@ public abstract class Joueur {
 	
 	protected void feedback(String str)
 	{
-		j.afficher(str, this, true);
+		j.getIO().afficher(str);
 	}
 	
 	protected void passerTour()
@@ -93,6 +93,29 @@ public abstract class Joueur {
 	public void afficher(String _str)
 	{
 		j.getIO().afficher(this.name + "> " + _str);
+	}
+	
+	public Divinite getDivinite()
+	{
+		return this.d;
+	}
+	
+	public void ajouterPAJour(int n)
+	{
+		j.getIO().afficher(this.name + " gagne " + n + "PA Jour.");
+		this.paJour+=n;
+	}
+	
+	public void ajouterPANuit(int n)
+	{
+		j.getIO().afficher(this.name + " gagne " + n + "PA Nuit.");
+		this.paNuit+=n;
+	}
+	
+	public void ajouterPANeant(int n)
+	{
+		j.getIO().afficher(this.name + " gagne " + n + "PA Néant.");
+		this.paNeant+=n;
 	}
 	
 	
