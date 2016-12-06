@@ -19,22 +19,9 @@ public class JoueurHumain extends Joueur {
 		}
 		else 
 		{
-			j.getIO().afficher(getEtat());
+			j.getIO().afficher(j.getIO().getEtat(this));
 			j.getIO().valider();
 		}
-	}
-	
-	private String getEtat()
-	{
-		String str = this.name+" : ";
-		str+="\nPA Jour : "+this.paJour;
-		str+="\nPA Nuit : "+this.paNuit;
-		str+="\nPA Néant : "+this.paNeant;
-		str+="\nCartes en main :";
-		for (Carte c : main.getCartes()) {
-			str+="\n\t"+c.toString();
-		}
-		return str;
 	}
 	
 	public int askInt()

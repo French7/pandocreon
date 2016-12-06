@@ -8,10 +8,12 @@ import game.Origines;
 public class GuideSpirituel extends Carte {
 
 	private ArrayList<Croyant> croyants;
+	private int nbCroyantsMax;
 	
-	public GuideSpirituel(String _nom, Origines _o, ArrayList<Dogmes> _dogmes)
+	public GuideSpirituel(String _nom, Origines _o, ArrayList<Dogmes> _dogmes, int _nbMax)
 	{
 		super(_nom, _o, _dogmes);
+		this.nbCroyantsMax = _nbMax;
 	}
 	
 	@Override
@@ -22,6 +24,6 @@ public class GuideSpirituel extends Carte {
 			o = "pas d'origine";
 		else
 			o = origine.toString();
-		return "Guide Spirituel - " + nom + ", " + origine;
+		return "Guide Spirituel\t" + nom + "\t" + origine + "\treprésente " + nbCroyantsMax + " maximum";
 	}
 }

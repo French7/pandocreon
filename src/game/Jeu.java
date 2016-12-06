@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import cartes.Apocalypse;
 import cartes.Croyant;
 import cartes.DeusEx;
+import cartes.GuideSpirituel;
 import divinites.Divinite;
 
 public class Jeu {
@@ -112,9 +113,9 @@ public class Jeu {
 	
 	private void initCartes()
 	{
+		Parser p = new Parser();
 		// croyants
 		String f = io.readFile("CROYANTS.txt");
-		Parser p = new Parser();
 		for (String line : p.parseFile(f)) { // split le fichier en lignes
 			String name = p.getName(line);
 			Origines origine = p.getOrigine(line);
@@ -128,9 +129,23 @@ public class Jeu {
 			}
 		}
 		
+		// guides spirituels
+				f = io.readFile("GS.txt");
+				for (String line : p.parseFile(f)) { // split le fichier en lignes
+					String name = p.getName(line);
+					Origines origine = p.getOrigine(line);
+					ArrayList<Dogmes> dogmes = p.getDogmes(line);
+					int nbCroyantsMax = p.getNbCroyants(line);
+					
+					try {
+						Pioche.getInstance().ajouterCarte(new GuideSpirituel(name, origine, dogmes, nbCroyantsMax));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+		
 		// deus ex
 		f = io.readFile("DEUSEX.txt");
-		p = new Parser();
 		for (String line : p.parseFile(f)) { // split le fichier en lignes
 			String name = p.getName(line);				
 			Origines origine = p.getOrigine(line);
@@ -144,7 +159,6 @@ public class Jeu {
 		
 		// apocalypses
 		f = io.readFile("APOCALYPSE.txt");
-		p = new Parser();
 		for (String line : p.parseFile(f)) { // split le fichier en lignes
 			String name = p.getName(line);				
 			Origines origine = p.getOrigine(line);

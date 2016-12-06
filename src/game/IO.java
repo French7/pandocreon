@@ -2,7 +2,10 @@ package game;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Collection;
 import java.util.Scanner;
+
+import cartes.Carte;
 
 public class IO {
 	
@@ -68,5 +71,27 @@ public class IO {
 	{
 		Scanner sc = new Scanner(System.in);
 		sc.nextLine();
+	}
+	
+	public String getEtat(Joueur j)
+	{
+		String str = j.getName()+" : ";
+		str+="\nPA Jour : " + j.getPAJour();
+		str+="\nPA Nuit : " + j.getPANuit();
+		str+="\nPA Néant : "+ j.getPANeant();
+		str+="\nCartes en main :";
+		str+=descCartes(j.getMainJoueur().getCartes());
+		return str;
+	}
+	
+	public String descCartes(Collection<Carte> cartes)
+	{
+		String str = "";
+		int i=0;
+		for (Carte c : cartes) {
+			i++;
+			str+="\n" + i + "\t"+c.toString();
+		}
+		return str;
 	}
 }

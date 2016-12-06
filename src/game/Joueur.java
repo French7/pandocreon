@@ -78,6 +78,8 @@ public abstract class Joueur {
 		return this.name; 
 	}
 	
+	
+	
 	public String toString()
 	{
 		String str = this.name;
@@ -116,6 +118,26 @@ public abstract class Joueur {
 	{
 		j.getIO().afficher(this.name + " gagne " + n + "PA Néant.");
 		this.paNeant+=n;
+	}
+	
+	public int getPAJour()
+	{
+		return this.paJour;
+	}
+	
+	public int getPANuit()
+	{
+		return this.paNuit;
+	}
+	
+	public int getPANeant()
+	{
+		return this.paNeant;
+	}
+	
+	public MainJoueur getMainJoueur()
+	{
+		return this.main;
 	}
 	
 	

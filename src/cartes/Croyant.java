@@ -18,6 +18,6 @@ public class Croyant extends Carte {
 	@Override
 	public String toString()
 	{
-		return "Croyant - " + nom + ", " + origine + ", " + dogmes;
+		return "Croyant\t" + nom + "\t" + origine + "\t" + dogmes + "\treprésente " + nbCroyants + " croyants";
 	}
 }

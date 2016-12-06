@@ -12,10 +12,10 @@ public class Apocalypse extends Carte {
 	public String toString()
 	{
 		String o = "";
-		if(this.origine.equals("null"))
+		if(this.origine == null)
 			o = "pas d'origine";
 		else
 			o = origine.toString();
-		return "Apocalypse - " + origine;
+		return "Apocalypse\t" + origine;
 	}
 }
