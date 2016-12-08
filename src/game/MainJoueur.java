@@ -21,4 +21,14 @@ public class MainJoueur {
 	{
 		this.cartes.add(_c);
 	}
+	
+	public void retirerCarte(Carte _c)
+	{
+		this.cartes.remove(_c);
+	}
+	
+	public int nbCartes()
+	{
+		return cartes.size();
+	}
 }

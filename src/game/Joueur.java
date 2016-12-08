@@ -44,9 +44,10 @@ public abstract class Joueur {
 		this.main.ajouterCarte(c);
 	}
 	
-	protected void defausserCarte()
+	protected void defausserCarte(Carte _c)
 	{
-		
+		j.getPioche().ajouterCarte(_c);
+		main.retirerCarte(_c);
 	}
 	
 	protected void piocherDivinite()
