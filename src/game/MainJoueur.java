@@ -31,4 +31,16 @@ public class MainJoueur {
 	{
 		return cartes.size();
 	}
+	
+	public int getPP()
+	{
+		int pp = 0;
+		for (Carte carte : cartes) {
+			if (carte.getClass() == GuideSpirituel.class)
+			{
+				pp+=((GuideSpirituel) carte).getPP();
+			}
+		}
+		return pp;
+	}
 }

@@ -1,6 +1,7 @@
 package game;
 
 
+import java.security.cert.CRLReason;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -233,6 +234,56 @@ public class Jeu {
 	public IO getIO()
 	{
 		return this.io;
+	}
+	
+	public int getNbJoueurs()
+	{
+		return joueurs.size();
+	}
+	
+	public void ajouterCroyantAuCentre(Croyant _c)
+	{
+		Centre.getInstance().ajouterCarte(_c);
+	}
+	
+	public void retirerCroyantDuCentre(Croyant _c)
+	{
+		Centre.getInstance().retirerCroyant(_c);
+	}
+	
+	public void croyantVersGuide(Croyant _c, GuideSpirituel _g)
+	{
+		if(!_g.recupererCroyant(_c))
+			io.afficher("Impossible : le Guide Spirituel a déjà trop de croyants, ou pas de dogme en commun !");
+		
+		else
+		{
+			io.afficher("Vous avez récupéré le croyant " + _c);
+		}
+	}
+	
+	public void apocalypse()
+	{
+		//ajouter si ce n'est pas le tour 1 et si pas d'apocalypse au tour précédent
+		if(getNbJoueurs() <= 3){
+			io.afficher("Le joueur avec le plus grand nombre de points de prières a gagné !");
+			//comparer la PP des joueurs et faire gagner celui qui a la plus grande.
+			int max = -1;
+			Joueur meilleurJoueur = null;
+			for (Joueur j : joueurs) {
+				if(j.getPP() > max)
+				{
+					max = j.getPP();
+					meilleurJoueur = j;
+				}
+			}
+			io.afficher("Le vainqueur est " + meilleurJoueur.name);
+		}
+		else
+		{
+			io.afficher("Le joueur avec le moins de points de prière est éliminé !");
+			//comparer la PP de tous les joueurs en jeu et éliminerer le joueur avec la plus petite
+		}
 	}
 	
 }

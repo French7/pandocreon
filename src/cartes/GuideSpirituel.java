@@ -16,6 +16,32 @@ public class GuideSpirituel extends Carte {
 		this.nbCroyantsMax = _nbMax;
 	}
 	
+	public boolean recupererCroyant(Croyant croyant) {
+		boolean dogmeEnCommun = false;
+		for (Dogmes d : dogmes) {
+			if (croyant.hasDogme(d))
+				dogmeEnCommun = true;
+		}
+		if (croyants.size() < nbCroyantsMax && dogmeEnCommun)
+		{
+				croyants.add(croyant);
+				return true;
+		} else
+		{
+			return false;
+		}
+	}
+	
+	public int getPP()
+	{
+		int pp = 0;
+		for(Croyant c : croyants)
+		{
+			pp+=c.getPP();
+		}
+		return pp;
+	}
+	
 	@Override
 	public String toString()
 	{

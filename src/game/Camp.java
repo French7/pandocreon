@@ -9,6 +9,11 @@ public class Camp {
 	
 	public Camp()
 	{
-		guides = null;
+		guides = new ArrayList<GuideSpirituel>();
 	}
+	
+	public void ajouterGuides(GuideSpirituel _g){
+		guides.add(_g);
+	}
+
 }

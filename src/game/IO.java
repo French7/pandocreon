@@ -2,10 +2,13 @@ package game;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.AbstractCollection;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import cartes.Carte;
+import cartes.Croyant;
 
 public class IO {
 	
@@ -81,10 +84,11 @@ public class IO {
 		str+="\nPA Néant : "+ j.getPANeant();
 		str+="\nCartes en main :";
 		str+=descCartes(j.getMainJoueur().getCartes());
+		descCartes(new LinkedList<Croyant>());
 		return str;
 	}
 	
-	public String descCartes(Collection<Carte> cartes)
+	public <T extends Carte> String descCartes (Collection<T> cartes)
 	{
 		String str = "";
 		int i=0;
@@ -94,4 +98,5 @@ public class IO {
 		}
 		return str;
 	}
+
 }

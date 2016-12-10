@@ -15,6 +15,16 @@ public class Croyant extends Carte {
 		this.nbCroyants = _nbCroyants;
 	}
 	
+	public int getPP()
+	{
+		return this.nbCroyants;
+	}
+	
+	public boolean hasDogme(Dogmes _d)
+	{
+		return this.dogmes.contains(_d);
+	}
+	
 	@Override
 	public String toString()
 	{

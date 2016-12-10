@@ -13,7 +13,7 @@ public abstract class Joueur {
 	protected Camp camp;
 	protected int paJour, paNuit, paNeant;
 	protected String name;
-	
+	protected IO vue;
 	protected boolean jeuLance;
 	
 	public Joueur(Jeu _j, String _name)
@@ -26,11 +26,67 @@ public abstract class Joueur {
 		paNuit = 0;
 		paNeant = 0;
 		jeuLance = false;
+		vue = j.getIO();
 	}
 	
 	public void tour()
 	{
-		
+		if (!jeuLance)
+		{
+			piocherDivinite();
+			jeuLance = true;
+		}
+		else 
+		{
+			boolean joue = false; 
+			vue.valider();
+			while(!joue)
+			{
+				vue.afficher(vue.getEtat(this));
+				vue.afficher("Que voulez vous faire ?");
+				vue.afficher("1. Défausser des cartes");
+				vue.afficher("2. Compléter votre main à 7");
+				vue.afficher("3. Jouer");
+				
+				switch(vue.askInt())
+				{
+					case 1:
+						vue.afficher("Quelle carte défausser ?");
+						int index = -1;
+						while(index < 0 || index > main.nbCartes())
+							index = vue.askInt()-1;
+						defausserCarte(main.getCartes().get(index));
+						break;
+					case 2:
+						vue.afficher("Vous avez " + main.getCartes().size() + " cartes en main.");
+						for(int i = main.getCartes().size() ; i < 7 ; i++){
+							piocherCarte();
+						}
+						vue.afficher("Vous avez maintenant 7 cartes en main.");
+						break;
+					case 3:
+						joue = true;
+						vue.afficher("Que voulez faire ?");
+						vue.afficher("1. Jouer carte action.");
+						vue.afficher("2. Sacrifier");
+						
+						if (vue.askInt() == 1)
+						{
+							vue.afficher("Quelle carte voulez-vous jouer ?");
+							vue.afficher(vue.descCartes(main.getCartes()));
+							jouerCarte(choixCarte());
+							//effet
+						}
+						
+						else if(vue.askInt() == 2)
+						{
+							vue.afficher("Quelle carte voulez-vous sacrifier ?");
+							sacrifierCarte(choixCarte());
+							
+						}
+				}
+			}
+		}
 	}
 	
 	protected String lancerDe()
@@ -42,6 +98,15 @@ public abstract class Joueur {
 	{
 		Carte c = j.getPioche().piocher();
 		this.main.ajouterCarte(c);
+	}
+	
+	protected Carte choixCarte()
+	{
+		int numCarte = -1;
+		while (numCarte < 0 || numCarte > main.getCartes().size())
+			numCarte = vue.askInt() - 1;
+		
+		return main.getCartes().get(numCarte);
 	}
 	
 	protected void defausserCarte(Carte _c)
@@ -63,13 +128,42 @@ public abstract class Joueur {
 	{
 		j.getIO().afficher(str);
 	}
-	
-	protected void passerTour()
+
+	protected void jouerCarte(Carte _c)
 	{
-		
+		main.retirerCarte(_c);
+		switch (_c.getClass().getSimpleName()){
+		case "Croyant":
+			 j.ajouterCroyantAuCentre((Croyant) _c);
+			 vue.afficher(vue.descCartes(j.getCentre().getCroyants()));
+			 break;
+		case "GuideSpirituel":
+			camp.ajouterGuides((GuideSpirituel) _c);
+			if (j.getCentre().getNbCroyants() > 0){
+				vue.afficher("Quel croyant voulez-vous ramenez dans votre camp ?");
+				vue.afficher("0\tAucun");
+				for (int i = 1 ; i < j.getCentre().getNbCroyants() ; i++) {
+					vue.afficher(i + "\t" + j.getCentre().getCroyant(i));
+				}
+				int i = -1;
+				while(i<0 && i<j.getCentre().getNbCroyants()) i = vue.askInt();
+				// on essaie d'ajouter le croyant au GS
+				j.croyantVersGuide(j.getCentre().getCroyant(i), (GuideSpirituel) _c);
+			}
+			else{
+				vue.afficher("Pas de croyants au centre.");
+			}
+			break;
+		case "DeusEx":
+			_c.effet();
+			break;
+		case "Apocalypse":
+			j.apocalypse();
+			break;
+		}
 	}
 	
-	protected void recupererCroyants()
+	protected void sacrifierCarte(Carte _c)
 	{
 		
 	}
@@ -79,7 +173,10 @@ public abstract class Joueur {
 		return this.name; 
 	}
 	
-	
+	public int getPP()
+	{
+		return main.getPP();
+	}
 	
 	public String toString()
 	{
@@ -101,6 +198,11 @@ public abstract class Joueur {
 	public Divinite getDivinite()
 	{
 		return this.d;
+	}
+	
+	public void recupererCroyant()
+	{
+		
 	}
 	
 	public void ajouterPAJour(int n)
